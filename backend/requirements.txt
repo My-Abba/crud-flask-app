@@ -1,0 +1,3 @@
+Flask           # Microframework web ligero
+Flask-Cors      # Permite CORS para peticiones desde el frontend
+Flask-SQLAlchemy# Extensión para ORM SQLAlchemy en Flask
