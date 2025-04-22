@@ -11,7 +11,7 @@
 </head>
 <body class="p-4">
   <!-- Título de la página -->
-  <h1 class="mb-4">Gestión de Tareas</h1>
+  <h1 class="mb-4">Gestión de Items</h1>
 
   <!-- Formulario para crear o editar un item -->
   <form id="form-item" class="mb-3">
@@ -29,14 +29,9 @@
       <input type="text" id="descripcion" class="form-control" placeholder="Ej: Detalles del producto">
     </div>
 
-    <!-- Campo Fecha Límite -->
-    <div class="mb-2">
-      <label for="fecha" class="form-label">Fecha Límite</label>
-      <input type="date" id="fecha" class="form-control">
-    </div>
-
-    <!-- Botones -->
+    <!-- Botón Guardar -->
     <button class="btn btn-primary" type="submit">Guardar</button>
+    <!-- Botón Cancelar (solo visible al editar) -->
     <button class="btn btn-secondary ms-2" id="btn-cancelar" type="button" style="display:none;">Cancelar</button>
   </form>
 
@@ -46,7 +41,6 @@
       <tr>
         <th>Nombre</th>
         <th>Descripción</th>
-        <th>Fecha límite</th>
         <th>Acciones</th>
       </tr>
     </thead>
