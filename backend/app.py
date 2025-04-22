@@ -1,26 +1,32 @@
-from flask import Flask
+from flask import Flask, send_from_directory  # <-- Añade send_from_directory aquí
 from flask_cors import CORS
-from models import db   # Importamos la instancia de SQLAlchemy
-import routes            # Blueprint con rutas CRUD
+from models import db
+import routes
 
-# 1. Inicializamos Flask
 app = Flask(__name__)
-
-# 2. Configuración de la base de datos: SQLite en archivo local data.db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desactivar avisos innecesarios
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# 3. Inicializar extensiones
-db.init_app(app)  # Conecta SQLAlchemy con la app
-CORS(app)         # Permite llamadas cross-origin desde el frontend
+# Inicializar extensiones
+db.init_app(app)
+CORS(app)
 
-# 4. Crear las tablas definidas en models.py si no existen
-with app.app_context():
-    db.create_all()
-
-# 5. Registrar el blueprint con prefijo '/api'
+# Registrar blueprint
 app.register_blueprint(routes.bp)
 
-# 6. Ejecutar servidor en modo debug para desarrollo
+# Servir frontend (añade estas rutas)
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('../frontend', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('../frontend', path)
+
+def setup_database():
+    with app.app_context():
+        db.create_all()
+
 if __name__ == '__main__':
+    setup_database()
     app.run(debug=True)
